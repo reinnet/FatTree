@@ -13,6 +13,8 @@ type Node struct {
 	RAM             int      `yaml:"ram"`
 	VNFSupport      bool     `yaml:"vnfSupport"`
 	NotManagerNodes []string `yaml:"notManagerNodes"`
+	Egress          bool     `yaml:"egress"`
+	Ingress         bool     `yaml:"ingress"`
 }
 
 func main() {
@@ -43,12 +45,39 @@ func main() {
 
 	for i := 0; i < cores; i++ {
 		nodes = append(nodes, Node{
-			ID:              fmt.Sprintf("switch-%d", i),
+			ID:              fmt.Sprintf("core-switch-%d", i),
 			Cores:           0,
 			RAM:             0,
 			VNFSupport:      false,
 			NotManagerNodes: []string{},
+			Egress:          true,
+			Ingress:         true,
 		})
+	}
+
+	for i := 0; i < pods; i++ {
+		for j := 0; j < aggregations; j++ {
+			nodes = append(nodes, Node{
+				ID:              fmt.Sprintf("aggr-switch-%d-%d", i, j),
+				Cores:           0,
+				RAM:             0,
+				VNFSupport:      false,
+				NotManagerNodes: []string{},
+				Egress:          false,
+				Ingress:         false,
+			})
+		}
+		for j := 0; j < edges; j++ {
+			nodes = append(nodes, Node{
+				ID:              fmt.Sprintf("edge-switch-%d-%d", i, j),
+				Cores:           0,
+				RAM:             0,
+				VNFSupport:      false,
+				NotManagerNodes: []string{},
+				Egress:          false,
+				Ingress:         false,
+			})
+		}
 	}
 
 	b, err := yaml.Marshal(nodes)
