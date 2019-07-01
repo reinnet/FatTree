@@ -20,7 +20,9 @@ func main() {
 
 	var k int
 
-	fmt.Scanf("%d", &k)
+	if _, err := fmt.Scanf("%d", &k); err != nil {
+		return
+	}
 
 	// globals
 	pods := k
