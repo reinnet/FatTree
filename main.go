@@ -100,6 +100,29 @@ func main() {
 				Ingress:         false,
 			})
 		}
+
+		// servers in the other pods cannot manage these server
+		// so create a list of them and set as not manager nodes
+		var nmn []string
+		for k := 0; k < pods; k++ {
+			if k != i {
+				for j := 0; j < servers; j++ {
+					nmn = append(nmn, fmt.Sprintf("server-%d-%d", k, j))
+				}
+			}
+		}
+
+		for j := 0; j < servers; j++ {
+			nodes = append(nodes, Node{
+				ID:              fmt.Sprintf("server-%d-%d", i, j),
+				Cores:           20,
+				RAM:             100,
+				VNFSupport:      true,
+				NotManagerNodes: nmn,
+				Egress:          false,
+				Ingress:         false,
+			})
+		}
 	}
 
 	b, err := yaml.Marshal(Config{
