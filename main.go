@@ -41,6 +41,10 @@ func main() {
 		return
 	}
 
+	if k%2 == 1 {
+		return
+	}
+
 	// globals
 	pods := k
 	cores := k * k / 4
@@ -72,7 +76,7 @@ func main() {
 		for j := 0; j < pods; j++ {
 			links = append(links, Link{
 				Source:      fmt.Sprintf("core-swtich-%d", i),
-				Destination: fmt.Sprintf("aggr-switch-%d-%d", j, i),
+				Destination: fmt.Sprintf("aggr-switch-%d-%d", j, i/(pods/2)),
 				Bandwidth:   40 * 1000,
 			})
 		}
@@ -102,6 +106,16 @@ func main() {
 			})
 		}
 
+		for j := 0; j < aggregations; j++ {
+			for k := 0; k < edges; k++ {
+				links = append(links, Link{
+					Source:      fmt.Sprintf("aggr-switch-%d-%d", i, j),
+					Destination: fmt.Sprintf("edge-switch-%d-%d", i, k),
+					Bandwidth:   40 * 1000,
+				})
+			}
+		}
+
 		// servers in the other pods cannot manage these server
 		// so create a list of them and set as not manager nodes
 		var nmn []string
@@ -122,6 +136,11 @@ func main() {
 				NotManagerNodes: nmn,
 				Egress:          false,
 				Ingress:         false,
+			})
+			links = append(links, Link{
+				Source:      fmt.Sprintf("edge-switch-%d-%d", i, j/(pods/2)),
+				Destination: fmt.Sprintf("server-%d-%d", i, j),
+				Bandwidth:   40 * 1000,
 			})
 		}
 	}
