@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -131,6 +132,19 @@ func main() {
 	})
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+	f, err := os.Create("config.yaml")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	if _, err := f.Write(b); err != nil {
+		fmt.Println(err)
+		return
+	}
+	if err := f.Close(); err != nil {
+		return
 	}
 	fmt.Println(string(b))
 }
