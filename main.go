@@ -75,7 +75,7 @@ func main() {
 
 		for j := 0; j < pods; j++ {
 			links = append(links, Link{
-				Source:      fmt.Sprintf("core-swtich-%d", i),
+				Source:      fmt.Sprintf("core-switch-%d", i),
 				Destination: fmt.Sprintf("aggr-switch-%d-%d", j, i/(pods/2)),
 				Bandwidth:   40 * 1000,
 			})
