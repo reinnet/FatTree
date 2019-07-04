@@ -6,7 +6,7 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-// Node in physical server or node in fat tree topology
+// Node is a physical server in fat tree topology
 type Node struct {
 	ID              string   `yaml:"id"`
 	Cores           int      `yaml:"cores"`
@@ -17,8 +17,22 @@ type Node struct {
 	Ingress         bool     `yaml:"ingress"`
 }
 
+// Link is a physical link in fat tree topology
+type Link struct {
+	Source      string `yaml:"source"`
+	Destination string `yaml:"destination"`
+	Bandwidth   int    `yaml:"bandwidth"`
+}
+
+// Config aggrates links and nodes as a physical topology
+type Config struct {
+	Nodes []Node
+	Links []Link
+}
+
 func main() {
 	var nodes []Node
+	var links []Link
 
 	var k int
 
@@ -53,6 +67,14 @@ func main() {
 			Egress:          true,
 			Ingress:         true,
 		})
+
+		for j := 0; j < pods; j++ {
+			links = append(links, Link{
+				Source:      fmt.Sprintf("core-swtich-%d", i),
+				Destination: fmt.Sprintf("aggr-switch-%d-%d", j, i),
+				Bandwidth:   40 * 1000,
+			})
+		}
 	}
 
 	for i := 0; i < pods; i++ {
@@ -80,7 +102,10 @@ func main() {
 		}
 	}
 
-	b, err := yaml.Marshal(nodes)
+	b, err := yaml.Marshal(Config{
+		Nodes: nodes,
+		Links: links,
+	})
 	if err != nil {
 		fmt.Println(err)
 	}
