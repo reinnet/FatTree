@@ -67,7 +67,7 @@ func main() {
 			ID:              fmt.Sprintf("core-switch-%d", i),
 			Cores:           0,
 			RAM:             0,
-			VNFSupport:      false,
+			VNFSupport:      true,
 			NotManagerNodes: []string{},
 			Egress:          true,
 			Ingress:         true,
