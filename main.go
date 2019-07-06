@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/roadtomsc/FatTree/namer"
 	"github.com/roadtomsc/FatTree/topology"
 
 	yaml "gopkg.in/yaml.v2"
@@ -48,7 +49,7 @@ func main() {
 
 	for i := 0; i < cores; i++ {
 		nodes = append(nodes, topology.Node{
-			ID:              fmt.Sprintf("core-switch-%d", i),
+			ID:              namer.CoreSwitch(i),
 			Cores:           0,
 			RAM:             0,
 			VNFSupport:      true,
@@ -59,8 +60,8 @@ func main() {
 
 		for j := 0; j < pods; j++ {
 			links = append(links, topology.Link{
-				Source:      fmt.Sprintf("core-switch-%d", i),
-				Destination: fmt.Sprintf("aggr-switch-%d-%d", j, i/(pods/2)),
+				Source:      namer.CoreSwitch(i),
+				Destination: namer.AggrSwitch(j, i/(pods/2)),
 				Bandwidth:   40 * 1000,
 			})
 		}
@@ -69,7 +70,7 @@ func main() {
 	for i := 0; i < pods; i++ {
 		for j := 0; j < aggregations; j++ {
 			nodes = append(nodes, topology.Node{
-				ID:              fmt.Sprintf("aggr-switch-%d-%d", i, j),
+				ID:              namer.AggrSwitch(i, j),
 				Cores:           0,
 				RAM:             0,
 				VNFSupport:      false,
@@ -80,7 +81,7 @@ func main() {
 		}
 		for j := 0; j < edges; j++ {
 			nodes = append(nodes, topology.Node{
-				ID:              fmt.Sprintf("edge-switch-%d-%d", i, j),
+				ID:              namer.EdgeSwitch(i, j),
 				Cores:           0,
 				RAM:             0,
 				VNFSupport:      false,
@@ -93,8 +94,8 @@ func main() {
 		for j := 0; j < aggregations; j++ {
 			for k := 0; k < edges; k++ {
 				links = append(links, topology.Link{
-					Source:      fmt.Sprintf("aggr-switch-%d-%d", i, j),
-					Destination: fmt.Sprintf("edge-switch-%d-%d", i, k),
+					Source:      namer.AggrSwitch(i, j),
+					Destination: namer.EdgeSwitch(i, k),
 					Bandwidth:   40 * 1000,
 				})
 			}
@@ -106,14 +107,14 @@ func main() {
 		for k := 0; k < pods; k++ {
 			if k != i {
 				for j := 0; j < servers; j++ {
-					nmn = append(nmn, fmt.Sprintf("server-%d-%d", k, j))
+					nmn = append(nmn, namer.Server(k, j))
 				}
 			}
 		}
 
 		for j := 0; j < servers; j++ {
 			nodes = append(nodes, topology.Node{
-				ID:              fmt.Sprintf("server-%d-%d", i, j),
+				ID:              namer.Server(i, j),
 				Cores:           20,
 				RAM:             100,
 				VNFSupport:      true,
@@ -122,8 +123,8 @@ func main() {
 				Ingress:         false,
 			})
 			links = append(links, topology.Link{
-				Source:      fmt.Sprintf("edge-switch-%d-%d", i, j/(pods/2)),
-				Destination: fmt.Sprintf("server-%d-%d", i, j),
+				Source:      namer.EdgeSwitch(i, j/(pods/2)),
+				Destination: namer.Server(i, j),
 				Bandwidth:   40 * 1000,
 			})
 		}
