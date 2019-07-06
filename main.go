@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/roadtomsc/FatTree/namer"
@@ -150,5 +151,5 @@ func main() {
 	if err := f.Close(); err != nil {
 		return
 	}
-	fmt.Println(string(b))
+	log.Println(string(b))
 }
