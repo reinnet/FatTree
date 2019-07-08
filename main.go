@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 
 	"github.com/roadtomsc/FatTree/namer"
@@ -102,11 +103,11 @@ func main() {
 			}
 		}
 
-		// servers in the other pods cannot manage these server
+		// servers in far pods cannot manage these server
 		// so create a list of them and set as not manager nodes
 		var nmn []string
 		for k := 0; k < pods; k++ {
-			if k != i {
+			if k != i && k != i+1 && k != i-1 {
 				for j := 0; j < servers; j++ {
 					nmn = append(nmn, namer.Server(k, j))
 				}
@@ -116,8 +117,8 @@ func main() {
 		for j := 0; j < servers; j++ {
 			nodes = append(nodes, topology.Node{
 				ID:              namer.Server(i, j),
-				Cores:           20,
-				RAM:             100,
+				Cores:           rand.Intn(38) + 10,   // each server has at least 10 vCPU and 38 vCPU at most
+				RAM:             rand.Intn(600) + 100, // each server has at least 100GB of ram and 700GB at most
 				VNFSupport:      true,
 				NotManagerNodes: nmn,
 				Egress:          false,
