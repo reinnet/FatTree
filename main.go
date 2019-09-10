@@ -33,6 +33,7 @@ func main() {
 		})
 	}
 
+	// https://ars.els-cdn.com/content/image/1-s2.0-S0140366415003618-gr10.jpg
 	connections := [][2]int{
 		[2]int{1, 2},
 		[2]int{1, 6},
