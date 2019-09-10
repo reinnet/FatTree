@@ -24,3 +24,7 @@
 /Godeps/
 
 # End of https://www.gitignore.io/api/go
+# binary
+USNet
+# generated configuration
+config.yaml
