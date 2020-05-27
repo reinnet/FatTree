@@ -1,0 +1,12 @@
+package topology
+
+// Node is a physical server in fat tree topology
+type Node struct {
+	Cores           int      `yaml:"cores"`
+	RAM             int      `yaml:"ram"`
+	VNFSupport      bool     `yaml:"vnfSupport"`
+	Egress          bool     `yaml:"egress"`
+	Ingress         bool     `yaml:"ingress"`
+	ID              string   `yaml:"id"`
+	NotManagerNodes []string `yaml:"notManagerNodes"`
+}
