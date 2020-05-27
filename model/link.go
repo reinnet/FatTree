@@ -1,4 +1,4 @@
-package topology
+package model
 
 // Link is a physical link in fat tree topology
 type Link struct {

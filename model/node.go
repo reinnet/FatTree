@@ -1,4 +1,4 @@
-package topology
+package model
 
 // Node is a physical server in fat tree topology
 type Node struct {
