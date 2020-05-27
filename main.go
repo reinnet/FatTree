@@ -66,6 +66,12 @@ func main() {
 				Destination: namer.AggrSwitch(j, i/(pods/2)),
 				Bandwidth:   40 * 1000,
 			})
+
+			links = append(links, topology.Link{
+				Destination: namer.CoreSwitch(i),
+				Source:      namer.AggrSwitch(j, i/(pods/2)),
+				Bandwidth:   40 * 1000,
+			})
 		}
 	}
 
@@ -100,6 +106,12 @@ func main() {
 					Destination: namer.EdgeSwitch(i, k),
 					Bandwidth:   40 * 1000,
 				})
+
+				links = append(links, topology.Link{
+					Destination: namer.AggrSwitch(i, j),
+					Source:      namer.EdgeSwitch(i, k),
+					Bandwidth:   40 * 1000,
+				})
 			}
 		}
 
@@ -129,6 +141,11 @@ func main() {
 				Destination: namer.Server(i, j),
 				Bandwidth:   40 * 1000,
 			})
+			links = append(links, topology.Link{
+				Destination: namer.EdgeSwitch(i, j/(pods/2)),
+				Source:      namer.Server(i, j),
+				Bandwidth:   40 * 1000,
+			})
 		}
 	}
 
@@ -140,17 +157,21 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
 	f, err := os.Create("config.yaml")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
 	if _, err := f.Write(b); err != nil {
 		fmt.Println(err)
 		return
 	}
+
 	if err := f.Close(); err != nil {
 		return
 	}
+
 	log.Println(string(b))
 }
