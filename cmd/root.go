@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/reinnet/topology/cmd/fattree"
+	"github.com/reinnet/topology/cmd/usnet"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -20,6 +21,7 @@ func Execute() {
 	}
 
 	fattree.Register(root)
+	usnet.Register(root)
 
 	if err := root.Execute(); err != nil {
 		logrus.Errorf("failed to execute root command: %s", err.Error())
