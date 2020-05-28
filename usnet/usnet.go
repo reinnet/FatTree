@@ -32,10 +32,10 @@ const MemoryLB = 100
 const MemoryUB = 700
 
 // NodesLB represents a lower bound for number of nodes that are attached to a point
-const NodesLB = 10
+const NodesLB = 8
 
 // NodesUB represents an upper bound for number of nodes that are attached to a point
-const NodesUB = 40
+const NodesUB = 12
 
 // Build builds a USNet Topology.
 // nolint: gomnd, funlen
