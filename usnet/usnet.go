@@ -49,7 +49,7 @@ func (u USNet) Build() model.Config {
 			ID:              fmt.Sprintf("switch-%d", i+1),
 			Cores:           0,
 			RAM:             0,
-			VNFSupport:      false,
+			VNFSupport:      true,
 			NotManagerNodes: []string{},
 			Egress:          true,
 			Ingress:         true,
