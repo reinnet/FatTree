@@ -42,6 +42,7 @@ func New(k int) (FatTree, error) {
 	}, nil
 }
 
+// nolint: gomnd, funlen
 func (f FatTree) perPod(pod int) ([]model.Node, []model.Link) {
 	pods := f.k
 
@@ -135,6 +136,7 @@ func (f FatTree) perPod(pod int) ([]model.Node, []model.Link) {
 }
 
 // Build builds a k-FatTree Topology.
+// nolint: gomnd
 func (f FatTree) Build() model.Config {
 	var nodes []model.Node
 
