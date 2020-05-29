@@ -19,7 +19,7 @@ func main() error {
 	return nil
 }
 
-// Register fattree command.
+// Register usnet command.
 func Register(root *cobra.Command) {
 	cmd := &cobra.Command{
 		Use:   "usnet",

@@ -16,26 +16,26 @@ func New() (USNet, error) {
 	return USNet{}, nil
 }
 
-// LinkBandwidth for each link in topology
+// LinkBandwidth for each link in topology.
 const LinkBandwidth = 40 * 1000
 
-// CoresLB represents a lower bound for number of cores in each node
+// CoresLB represents a lower bound for number of cores in each node.
 const CoresLB = 10
 
-// CoresUB represents an upper bound for number of cores in each node
+// CoresUB represents an upper bound for number of cores in each node.
 const CoresUB = 48
 
-// MemoryLB represents a lower bound for amount of memory in each node
+// MemoryLB represents a lower bound for amount of memory in each node.
 const MemoryLB = 100
 
-// MemoryUB represents an upper bound for amount of memory in each node
+// MemoryUB represents an upper bound for amount of memory in each node.
 const MemoryUB = 700
 
-// NodesLB represents a lower bound for number of nodes that are attached to a point
-const NodesLB = 8
+// NodesLB represents a lower bound for number of nodes that are attached to a point.
+const NodesLB = 3
 
-// NodesUB represents an upper bound for number of nodes that are attached to a point
-const NodesUB = 12
+// NodesUB represents an upper bound for number of nodes that are attached to a point.
+const NodesUB = 4
 
 // Build builds a USNet Topology.
 // nolint: gomnd, funlen

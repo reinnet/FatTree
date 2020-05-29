@@ -13,22 +13,22 @@ type FatTree struct {
 	k int
 }
 
-// LinkBandwidth for each link in topology
+// LinkBandwidth for each link in topology.
 const LinkBandwidth = 40 * 1000
 
-// CoresLB represents a lower bound for number of cores in each node
+// CoresLB represents a lower bound for number of cores in each node.
 const CoresLB = 10
 
-// CoresUB represents an upper bound for number of cores in each node
+// CoresUB represents an upper bound for number of cores in each node.
 const CoresUB = 48
 
-// MemoryLB represents a lower bound for amount of memory in each node
+// MemoryLB represents a lower bound for amount of memory in each node.
 const MemoryLB = 100
 
-// MemoryUB represents an upper bound for amount of memory in each node
+// MemoryUB represents an upper bound for amount of memory in each node.
 const MemoryUB = 700
 
-// ErrInvalidK is an error for setting an invalid value for k
+// ErrInvalidK is an error for setting an invalid value for k.
 var ErrInvalidK = errors.New("given k is not a valid k for k-fattree")
 
 // New creates a new FatTree builder and validate configurations.
