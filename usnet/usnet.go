@@ -51,8 +51,8 @@ func (u USNet) Build() model.Config {
 			RAM:             0,
 			VNFSupport:      true,
 			NotManagerNodes: []string{},
-			Egress:          true,
-			Ingress:         true,
+			Egress:          rand.Intn(3) == 0,
+			Ingress:         rand.Intn(3) == 0,
 		})
 
 		for j := 0; j < rand.Intn(NodesUB-NodesLB)+NodesUB; j++ {
