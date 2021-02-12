@@ -1,6 +1,6 @@
 package model
 
-// Link is a physical link in fat tree topology.
+// Link is a physical link in the topology.
 type Link struct {
 	Source      string `yaml:"source"`
 	Destination string `yaml:"destination"`

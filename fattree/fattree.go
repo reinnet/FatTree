@@ -96,8 +96,8 @@ func (f FatTree) perPod(pod int) ([]model.Node, []model.Link) {
 		}
 	}
 
-	// servers in far pods cannot manage these server
-	// so create a list of them and set as not manager nodes
+	// servers in the far pods (more than one pod away) cannot manage these servers
+	// so create a list of them and set them as not manager nodes
 	var nmn []string
 
 	for k := 0; k < pods; k++ {

@@ -1,6 +1,6 @@
 package model
 
-// Node is a physical server in fat tree topology.
+// Node is a physical server in the topology.
 type Node struct {
 	Cores           int      `yaml:"cores"`
 	RAM             int      `yaml:"ram"`
